@@ -5,7 +5,7 @@ variable "project" {
 }
 
 variable "envrionment" {
-    description = "Deployment env"
+    description = "Deployment Environment"
     type = string
-    default = "terraform env"
+    default = "dev"
 }

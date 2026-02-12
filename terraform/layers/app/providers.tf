@@ -13,7 +13,7 @@ provider "aws" {
     tags = {
       Environment = var.envrionment
       Project = var.project
-      CreatedBy = "jibran"
+      CreatedBy = "Terraform"
     }
   }
   
