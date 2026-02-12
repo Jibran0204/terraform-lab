@@ -7,3 +7,15 @@ terraform {
     }
   }
 }
+
+provider "aws" {
+  default_tags {
+    tags = {
+      Project = var.project
+      Envrionment = var.envrionment
+      CreatedBy = "Jibran"
+    }
+    
+  }
+  
+}
