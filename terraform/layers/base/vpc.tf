@@ -1,22 +1,26 @@
-locals {
-  az_count = length(var.azs)
-  public_subnets  = [for i in range(local.az_count) : cidrsubnet(var.vpc_cidr, 3, i)]
-  private_subnets = [for i in range(local.az_count) : cidrsubnet(var.vpc_cidr, 3, i + local.az_count)]
+data "aws_availability_zones" "available" {
+  state = "available"
 }
+
+locals {
+  az_count = length(data.aws_availability_zones.available.names)
+}
+
 module "vpc" {
     source = "terraform-aws-modules/vpc/aws"
-    name = "my-vpc"
+    name = "${var.project}-${var.envrionment}-vpc"
     cidr = var.vpc_cidr
 
-    azs = var.azs
-    private_subnets = local.private_subnets
-    public_subnets  = local.public_subnets
+    azs = data.aws_availability_zones.available.names
+    private_subnets = [for i in range(local.az_count) : cidrsubnet(var.vpc_cidr, 3, i + local.az_count)]
+    public_subnets  = [for i in range(local.az_count) : cidrsubnet(var.vpc_cidr, 3, i)]
 
     enable_nat_gateway = true
-    enable_vpn_gateway = true
+    # if env is dev then one nat gateway per az = false. so single nat gateway is used
+    one_nat_gateway_per_az = var.envrionment == "dev" ? true : false
 
-    tags = {
-        Terraform = "true"
-        Environment = var.envrionment
-    }
+    ?if env is not dev then one nat gateway per 
+
+
+
 }
