@@ -16,11 +16,11 @@ module "vpc" {
     public_subnets  = [for i in range(local.az_count) : cidrsubnet(var.vpc_cidr, 3, i)]
 
     enable_nat_gateway = true
-    # if env is dev then one nat gateway per az = false. so single nat gateway is used
-    one_nat_gateway_per_az = var.envrionment == "dev" ? true : false
+    
 
-    ?if env is not dev then one nat gateway per 
+    single_nat_gateway = var.envrionment == "dev" ? true : false
 
+    one_nat_gateway_per_az = var.envrionment == "dev" ? false : true
 
 
 }
