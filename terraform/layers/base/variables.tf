@@ -9,3 +9,9 @@ variable "envrionment" {
     type = string
     default = "dev"
 }
+
+
+variable "vpc_cidr" {
+  description = "CIDR range for VPC"
+  type = string
+}
