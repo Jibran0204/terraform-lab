@@ -1,11 +1,11 @@
 variable "project" {
   description = "Project name"
   type = string
-  default = "terraform lab"
+  default = "grad-lab"
 }
 
-variable "envrionment" {
-    description = "Deployment env"
+variable "environment" {
+    description = "Deployment Environment"
     type = string
     default = "dev"
 }

@@ -8,7 +8,7 @@ locals {
 
 module "vpc" {
     source = "terraform-aws-modules/vpc/aws"
-    name = "${var.project}-${var.envrionment}-vpc"
+    name = "${var.project}-${var.environment}-vpc"
     cidr = var.vpc_cidr
 
     azs = data.aws_availability_zones.available.names
@@ -18,9 +18,9 @@ module "vpc" {
     enable_nat_gateway = true
     
 
-    single_nat_gateway = var.envrionment == "dev" ? true : false
+    single_nat_gateway = var.environment == "dev" ? true : false
 
-    one_nat_gateway_per_az = var.envrionment == "dev" ? false : true
+    one_nat_gateway_per_az = var.environment == "dev" ? false : true
 
 
 }
